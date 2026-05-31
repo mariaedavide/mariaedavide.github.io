@@ -1,0 +1,446 @@
+/* ═══════════════════════════════════════
+   WEDDING WEBSITE — Maria & Davide
+   style.css
+═══════════════════════════════════════ */
+
+html { scroll-behavior: smooth; }
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+/* ─── Navbar ─── */
+#navbar.scrolled {
+  background: rgba(38, 70, 83, 0.93);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.06);
+}
+
+.nav-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: rgba(248,246,242,0.75);
+  position: relative;
+  transition: color 0.3s;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0; right: 0;
+  height: 1px;
+  background: #D4B483;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.4s ease;
+}
+.nav-link:hover { color: #D4B483; }
+.nav-link:hover::after { transform: scaleX(1); }
+
+.nav-logo { color: #F8F6F2; }
+
+/* Hamburger */
+#hamburger.open .ham-line:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+#hamburger.open .ham-line:nth-child(2) { opacity: 0; }
+#hamburger.open .ham-line:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+.mobile-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  color: rgba(248,246,242,0.8);
+  transition: color 0.3s;
+}
+.mobile-link:hover { color: #D4B483; }
+
+/* ─── HERO — isolato e corretto ─── */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* overflow:hidden blocca qualsiasi bleeding */
+  overflow: hidden;
+}
+
+/* Il wrapper del bg copre esattamente la section */
+.hero-bg-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  /* Il parallax JS muove questo elemento, niente scale sul wrapper */
+  will-change: transform;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(38,70,83,0.45) 0%,
+    rgba(38,70,83,0.35) 50%,
+    rgba(38,70,83,0.65) 100%
+  );
+}
+
+/* Linea orizzontale decorativa */
+.hero-hline {
+  position: absolute;
+  top: 50%;
+  left: 0; right: 0;
+  height: 1px;
+  background: rgba(212,180,131,0.15);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Contenuto hero */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #F8F6F2;
+  padding: 0 1.5rem;
+  width: 100%;
+  max-width: 900px;
+}
+
+.hero-eyebrow {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: #D4B483;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.2s forwards;
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  line-height: 1;
+  margin: 0;
+  opacity: 0;
+  animation: fadeUp 0.9s 0.45s forwards;
+}
+
+.hero-name {
+  display: block;
+  font-size: clamp(5rem, 14vw, 11rem);
+  letter-spacing: -0.02em;
+}
+
+.hero-amp {
+  display: block;
+  font-size: clamp(2rem, 5vw, 4rem);
+  letter-spacing: 0.3em;
+  color: #D4B483;
+  margin: 0.2em 0;
+}
+
+.hero-divider {
+  width: 4rem;
+  height: 1px;
+  background: #D4B483;
+  margin: 1.5rem auto;
+  opacity: 0;
+  animation: fadeUp 0.7s 0.85s forwards;
+}
+
+.hero-date {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  opacity: 0;
+  animation: fadeUp 0.7s 1.0s forwards;
+}
+
+.hero-location {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  color: rgba(248,246,242,0.65);
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 0.7s 1.15s forwards;
+}
+
+.hero-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: rgba(248,246,242,0.75);
+  max-width: 30rem;
+  margin: 0 auto 2.5rem;
+  line-height: 1.6;
+  opacity: 0;
+  animation: fadeUp 0.7s 1.3s forwards;
+}
+
+.hero-cta {
+  display: inline-block;
+  border: 1px solid rgba(212,180,131,0.55);
+  color: #D4B483;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  padding: 1rem 2.5rem;
+  transition: background 0.45s ease, color 0.45s ease;
+  opacity: 0;
+  animation: fadeUp 0.7s 1.5s forwards;
+}
+.hero-cta:hover {
+  background: #D4B483;
+  color: #264653;
+}
+
+/* Scroll indicator */
+.hero-scroll {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(248,246,242,0.4);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  z-index: 2;
+}
+.hero-scroll-line {
+  width: 1px;
+  height: 3rem;
+  background: linear-gradient(to bottom, rgba(248,246,242,0.4), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%,100% { opacity: 0.4; }
+  50%      { opacity: 0.9; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ─── Reveal ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Countdown ─── */
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+.countdown-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 300;
+  color: #F8F6F2;
+  line-height: 1;
+}
+.countdown-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #D4B483;
+}
+
+/* ─── Event cards ─── */
+.event-card {
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+.event-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(38,70,83,0.08);
+}
+
+/* ─── Buttons ─── */
+.btn-outline {
+  display: inline-block;
+  border: 1px solid rgba(212,180,131,0.5);
+  color: #264653;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.7rem 1.4rem;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  text-decoration: none;
+}
+.btn-outline:hover {
+  background: #D4B483;
+  border-color: #D4B483;
+  color: white;
+}
+
+/* ─── Travel cards ─── */
+.travel-card {
+  transition: background 0.4s ease, transform 0.4s ease;
+  backdrop-filter: blur(4px);
+}
+.travel-card:hover {
+  background: rgba(255,255,255,0.1);
+  transform: translateY(-3px);
+}
+
+/* ─── RSVP Form ─── */
+.form-label {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #264653;
+  margin-bottom: 0.5rem;
+  opacity: 0.6;
+}
+.form-input {
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: #264653;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #E7D8C9;
+  padding: 0.75rem 0;
+  transition: border-color 0.3s;
+  outline: none;
+  appearance: none;
+}
+.form-input:focus { border-bottom-color: #D4B483; }
+.form-input::placeholder { color: rgba(38,70,83,0.3); }
+
+.rsvp-radio-label { cursor: pointer; flex: 1; }
+.rsvp-radio-btn {
+  display: block;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #E7D8C9;
+  color: #264653;
+  transition: all 0.3s ease;
+}
+.rsvp-radio-label input:checked ~ .rsvp-radio-btn {
+  background: #264653;
+  color: #F8F6F2;
+  border-color: #264653;
+}
+
+/* ─── Info filters ─── */
+.info-filter {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.5rem 1.25rem;
+  border: 1px solid #E7D8C9;
+  color: #264653;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.info-filter:hover,
+.info-filter.active {
+  background: #264653;
+  border-color: #264653;
+  color: #F8F6F2;
+}
+
+/* ─── Info cards ─── */
+.info-card {
+  background: white;
+  border: 1px solid #E7D8C9;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.info-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(38,70,83,0.06);
+}
+.info-card-category {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #D4B483;
+  margin-bottom: 0.5rem;
+}
+.info-card-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  color: #264653;
+  margin-bottom: 0.5rem;
+}
+.info-card-detail {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: rgba(38,70,83,0.6);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+.info-card-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.info-card-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #E7D8C9;
+  color: #264653;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+.info-card-btn:hover {
+  background: #264653;
+  border-color: #264653;
+  color: white;
+}
+
+/* ─── Toast ─── */
+#copy-toast.show { opacity: 1 !important; }
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #F8F6F2; }
+::-webkit-scrollbar-thumb { background: #E7D8C9; }
+::-webkit-scrollbar-thumb:hover { background: #D4B483; }
+
+::selection { background: #D4B483; color: white; }
