@@ -13,6 +13,7 @@
   function onScroll() {
     navbar.classList.toggle('scrolled', window.scrollY > 60);
   }
+
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
@@ -30,14 +31,12 @@
 })();
 
 /* ─── Hero Parallax ─── */
-/* Muove solo l'<img> dentro hero-bg-wrap; la section ha overflow:hidden */
 (function initParallax() {
   const img = document.querySelector('.hero-bg-img');
   if (!img) return;
 
   function parallax() {
     const y = window.scrollY;
-    // Muove l'immagine verso l'alto del 30% dello scroll
     img.style.transform = `translateY(${y * 0.3}px)`;
   }
 
@@ -50,26 +49,32 @@
   const el = document.getElementById('countdown');
   if (!el) return;
 
-  function pad(n) { return String(n).padStart(2, '0'); }
+  function pad(n) {
+    return String(n).padStart(2, '0');
+  }
 
   function tick() {
     const diff = target - new Date();
+
     if (diff <= 0) {
       el.innerHTML = '<p class="col-span-4 font-display text-3xl text-cream text-center italic">Oggi è il giorno! 🥂</p>';
       return;
     }
+
     const d = Math.floor(diff / 86400000);
     const h = Math.floor((diff % 86400000) / 3600000);
-    const m = Math.floor((diff % 3600000)  / 60000);
-    const s = Math.floor((diff % 60000)    / 1000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
 
-    el.innerHTML = ['Giorni','Ore','Minuti','Secondi'].map((label, i) => {
+    el.innerHTML = ['Giorni', 'Ore', 'Minuti', 'Secondi'].map((label, i) => {
       const val = [d, h, m, s][i];
+
       return `
         <div class="countdown-item">
           <span class="countdown-number">${i === 0 ? val : pad(val)}</span>
           <span class="countdown-label">${label}</span>
-        </div>`;
+        </div>
+      `;
     }).join('');
   }
 
@@ -102,7 +107,11 @@ window.copyAddress = function(address) {
 };
 
 window.copyIBAN = function() {
-  const iban = document.getElementById('iban-text').textContent;
+  const ibanElement = document.getElementById('iban-text');
+  if (!ibanElement) return;
+
+  const iban = ibanElement.textContent;
+
   navigator.clipboard.writeText(iban)
     .then(() => showToast('IBAN copiato ✓'));
 };
@@ -110,42 +119,66 @@ window.copyIBAN = function() {
 function showToast(msg) {
   const toast = document.getElementById('copy-toast');
   if (!toast) return;
+
   toast.textContent = msg;
   toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 2500);
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 2500);
 }
 
-/* ─── RSVP ─── */
+/* ─── RSVP FORM CON FORMSPREE ─── */
 (function initRSVP() {
-  const form    = document.getElementById('rsvp-form');
+  const form = document.getElementById('rsvp-form');
   const success = document.getElementById('rsvp-success');
-  if (!form) return;
+
+  if (!form || !success) return;
+
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const originalBtnText = submitBtn ? submitBtn.textContent : '';
 
   const saved = localStorage.getItem('md_rsvp');
+
   if (saved) {
     try {
       const d = JSON.parse(saved);
-      document.getElementById('rsvp-nome').value      = d.nome      || '';
-      document.getElementById('rsvp-cognome').value   = d.cognome   || '';
-      document.getElementById('rsvp-invitati').value  = d.invitati  || '1';
-      document.getElementById('rsvp-allergie').value  = d.allergie  || '';
+
+      document.getElementById('rsvp-nome').value = d.nome || '';
+      document.getElementById('rsvp-cognome').value = d.cognome || '';
+      document.getElementById('rsvp-invitati').value = d.invitati || '1';
+      document.getElementById('rsvp-allergie').value = d.allergie || '';
       document.getElementById('rsvp-messaggio').value = d.messaggio || '';
+
       const r = document.querySelector(`input[name="presenza"][value="${d.presenza}"]`);
       if (r) r.checked = true;
+
       if (d.submitted) {
         form.classList.add('hidden');
         success.classList.remove('hidden');
       }
-    } catch(e) {}
+    } catch (e) {
+      localStorage.removeItem('md_rsvp');
+    }
   }
 
-  form.addEventListener('submit', e => {
+  function setLoading(isLoading) {
+    if (!submitBtn) return;
+
+    submitBtn.disabled = isLoading;
+    submitBtn.textContent = isLoading ? 'Invio in corso…' : originalBtnText;
+    submitBtn.classList.toggle('opacity-60', isLoading);
+    submitBtn.classList.toggle('cursor-not-allowed', isLoading);
+  }
+
+  form.addEventListener('submit', async function(e) {
     e.preventDefault();
-    const nome      = document.getElementById('rsvp-nome').value.trim();
-    const cognome   = document.getElementById('rsvp-cognome').value.trim();
-    const presenza  = document.querySelector('input[name="presenza"]:checked')?.value;
-    const invitati  = document.getElementById('rsvp-invitati').value;
-    const allergie  = document.getElementById('rsvp-allergie').value.trim();
+
+    const nome = document.getElementById('rsvp-nome').value.trim();
+    const cognome = document.getElementById('rsvp-cognome').value.trim();
+    const presenza = document.querySelector('input[name="presenza"]:checked')?.value;
+    const invitati = document.getElementById('rsvp-invitati').value;
+    const allergie = document.getElementById('rsvp-allergie').value.trim();
     const messaggio = document.getElementById('rsvp-messaggio').value.trim();
 
     if (!nome || !cognome || !presenza) {
@@ -153,14 +186,63 @@ function showToast(msg) {
       return;
     }
 
-    const data = { nome, cognome, presenza, invitati, allergie, messaggio, submitted: true, ts: new Date().toISOString() };
-    localStorage.setItem('md_rsvp', JSON.stringify(data));
+    const data = {
+      nome,
+      cognome,
+      presenza,
+      invitati,
+      allergie,
+      messaggio,
+      submitted: true,
+      ts: new Date().toISOString()
+    };
 
-    // TODO: invia a Firebase/Supabase qui
-    // fetch('/api/rsvp', { method: 'POST', body: JSON.stringify(data) })
+    const formData = new FormData();
 
-    form.classList.add('hidden');
-    success.classList.remove('hidden');
+    formData.append('nome', nome);
+    formData.append('cognome', cognome);
+    formData.append('presenza', presenza);
+    formData.append('invitati', invitati);
+    formData.append('allergie', allergie || 'Nessuna indicata');
+    formData.append('messaggio', messaggio || 'Nessun messaggio');
+
+    setLoading(true);
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        let errorMessage = "Ops! C'è stato un problema con l'invio del modulo. Controlla l'endpoint Formspree e riprova.";
+
+        try {
+          const result = await response.json();
+
+          if (result && result.errors && result.errors.length) {
+            errorMessage = result.errors.map(err => err.message).join('\n');
+          }
+        } catch (err) {}
+
+        alert(errorMessage);
+        return;
+      }
+
+      localStorage.setItem('md_rsvp', JSON.stringify(data));
+
+      form.classList.add('hidden');
+      success.classList.remove('hidden');
+      form.reset();
+
+    } catch (error) {
+      alert('Errore di connessione. Controlla la rete oppure verifica che il sito sia online in HTTPS.');
+    } finally {
+      setLoading(false);
+    }
   });
 
   window.resetRSVP = function() {
@@ -174,28 +256,40 @@ function showToast(msg) {
 /* ─── Info Utili ─── */
 (function initInfo() {
   const grid = document.getElementById('info-grid');
+
   if (!grid || typeof servicesData === 'undefined') return;
 
   function renderCard(s) {
     const phone = s.phone ? `<a href="tel:${s.phone}" class="info-card-btn">📞 Chiama</a>` : '';
-    const maps  = s.maps  ? `<a href="${s.maps}" target="_blank" class="info-card-btn">🗺 Maps</a>` : '';
-    const url   = s.url   ? `<a href="${s.url}"  target="_blank" class="info-card-btn">🌐 Sito</a>` : '';
+    const maps = s.maps ? `<a href="${s.maps}" target="_blank" class="info-card-btn">🗺 Maps</a>` : '';
+    const url = s.url ? `<a href="${s.url}" target="_blank" class="info-card-btn">🌐 Sito</a>` : '';
+
     return `
       <div class="info-card reveal" data-category="${s.category}">
         <p class="info-card-category">${s.emoji} ${s.categoryLabel}</p>
         <h3 class="info-card-name">${s.name}</h3>
-        <p class="info-card-detail">${s.detail.replace(/\n/g,'<br>')}</p>
+        <p class="info-card-detail">${s.detail.replace(/\n/g, '<br>')}</p>
         <div class="info-card-actions">${phone}${maps}${url}</div>
-      </div>`;
+      </div>
+    `;
   }
 
   function render(filter) {
-    const filtered = filter === 'all' ? servicesData : servicesData.filter(s => s.category === filter);
+    const filtered = filter === 'all'
+      ? servicesData
+      : servicesData.filter(s => s.category === filter);
+
     grid.innerHTML = filtered.map(renderCard).join('');
 
     const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
     }, { threshold: 0.1 });
+
     grid.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   }
 
@@ -214,7 +308,9 @@ function showToast(msg) {
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     const target = document.querySelector(a.getAttribute('href'));
+
     if (!target) return;
+
     e.preventDefault();
     target.scrollIntoView({ behavior: 'smooth' });
   });
