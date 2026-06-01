@@ -40,22 +40,13 @@ const servicesData = [
     category: 'trasporti',
     categoryLabel: 'Noleggio auto',
     emoji: '🚗',
-    name: 'Rent & Go Lamezia',
-    detail: 'Aeroporto di Lamezia Terme\nNoleggio auto dal più vicino aeroporto. Prenotazione online consigliata.',
+    name: 'CG Auto',
+    detail: 'Noleggio Auto\nNoleggio auto a cui ci affidiamo per gli invitati',
     phone: null,
     maps: 'https://maps.google.com/?q=Aeroporto+Lamezia+Terme',
     url: 'https://www.rentalcars.com',
   },
-  {
-    id: 5,
-    category: 'trasporti',
-    categoryLabel: 'Taxi / NCC',
-    emoji: '🚕',
-    name: 'NCC Calabria Sud',
-    detail: 'Servizio da/per aeroporti e stazioni.\nPrenotazione telefonica — prezzi fissi e concordati.',
-    phone: '+39 350 000 2222',
-    maps: null,
-  },
+
 
 
   // ─── Hotel ───
