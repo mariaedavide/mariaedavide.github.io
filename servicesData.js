@@ -42,9 +42,8 @@ const servicesData = [
     emoji: '🚗',
     name: 'CG Auto',
     detail: 'Noleggio Auto\nNoleggio auto a cui ci affidiamo per gli invitati',
-    phone: null,
-    maps: 'https://maps.google.com/?q=Aeroporto+Lamezia+Terme',
-    url: 'https://www.rentalcars.com',
+    phone:  '+393925668681',
+    url: 'https://impresapiu.subito.it/shops/27224-c-g-auto',
   },
 
 

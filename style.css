@@ -129,13 +129,20 @@ html { scroll-behavior: smooth; }
   animation: fadeUp 0.8s 0.2s forwards;
 }
 
+/* Modifica il contenitore del titolo per gestire lo spazio verticale */
 .hero-title {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 300;
-  line-height: 1;
+  line-height: 1; /* Un filo di respiro tra le righe */
   margin: 0;
   opacity: 0;
   animation: fadeUp 0.9s 0.45s forwards;
+  
+  /* Trasformiamo in flexbox verticale */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-name {
@@ -144,12 +151,17 @@ html { scroll-behavior: smooth; }
   letter-spacing: -0.02em;
 }
 
+/* Sistemiamo la & */
 .hero-amp {
   display: block;
   font-size: clamp(2rem, 5vw, 4rem);
-  letter-spacing: 0.3em;
   color: #D4B483;
-  margin: 0.2em 0;
+  
+  /* RIMOSSO il letter-spacing che spingeva a sinistra */
+  letter-spacing: 0; 
+  
+  /* Usa il margine per bilanciare otticamente lo spazio sopra e sotto */
+  margin: 0.3em 0 0em 0; 
 }
 
 .hero-divider {

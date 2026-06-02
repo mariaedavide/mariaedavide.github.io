@@ -46,9 +46,8 @@
  
       <ul class="hidden lg:flex items-center gap-8 text-sm tracking-widest uppercase font-light">
         <li><a href="#evento"      class="nav-link">Evento</a></li>
-        <li><a href="#rsvp"        class="nav-link">RSVP</a></li>
         <li><a href="#info"        class="nav-link">Info Utili</a></li>
-        <li><a href="#nozze"       class="nav-link">Lista Nozze</a></li>
+        <li><a href="#nozze"       class="nav-link">Il Vostro Pensiero</a></li>
       </ul>
  
       <button id="hamburger" class="lg:hidden flex flex-col gap-1.5 p-2" aria-label="Menu">
@@ -61,9 +60,8 @@
     <div id="mobile-menu" class="lg:hidden hidden bg-ocean/95 backdrop-blur-md">
       <ul class="flex flex-col items-center py-8 gap-6 text-sm tracking-widest uppercase text-cream">
         <li><a href="#evento"      class="mobile-link">Evento</a></li>
-        <li><a href="#rsvp"        class="mobile-link">RSVP</a></li>
         <li><a href="#info"        class="mobile-link">Info Utili</a></li>
-        <li><a href="#nozze"       class="mobile-link">Lista Nozze</a></li>
+        <li><a href="#nozze"       class="mobile-link">Il Vostro Pensiero</a></li>
       </ul>
     </div>
   </nav>
@@ -178,7 +176,7 @@
           <h3 class="font-display text-4xl sm:text-5xl font-light text-ocean">Parcheggi consigliati</h3>
           <div class="w-8 h-px bg-gold mx-auto mt-5"></div>
           <p class="font-body text-sm text-ocean/60 mt-5 max-w-lg mx-auto leading-relaxed">
-            Il centro storico di Nicotera è a traffico limitato. Vi consigliamo di lasciare l'auto in uno dei parcheggi qui sotto e raggiungere la cattedrale a piedi — è una passeggiata di pochi minuti tra i vicoli del borgo. Inoltre, consigliamo per chi avesse bisogno che si possono lasciare le persone davanti alla chiesa e successivamente andare a parcheggiare
+            Il centro storico di Nicotera è a traffico limitato. Vi consigliamo di lasciare l'auto in uno dei parcheggi qui sotto e raggiungere la cattedrale a piedi — è una passeggiata di pochi minuti tra i vicoli del borgo. Inoltre consigliamo, per chi avesse bisogno, di arrivare in auto davanti alla chiesa, lasciare comodamente gli ospiti nei pressi della cattedrale, ed andare a parcheggiare in seguito, qualora il parcheggio di vicolo Duomo fosse tutto occupato.
           </p>
         </div>
  
@@ -304,80 +302,6 @@
   </div>
  
  
-  <!-- ═══════════════ RSVP ═══════════════ -->
-  <section id="rsvp" class="py-24 px-6 bg-cream">
-    <div class="max-w-2xl mx-auto">
-      <div class="text-center mb-16 reveal">
-        <p class="font-body text-xs tracking-[0.4em] uppercase text-gold mb-4">Conferma presenza</p>
-        <h2 class="font-display text-6xl sm:text-7xl font-light text-ocean">RSVP</h2>
-        <div class="w-12 h-px bg-gold mx-auto mt-6"></div>
-        <p class="font-body text-sm text-ocean/60 mt-6 leading-relaxed">
-          Confermate la vostra presenza entro il <strong>2 agosto 2026</strong>.
-        </p>
-      </div>
- 
-      <div class="reveal bg-white/60 border border-sand/60 p-8 sm:p-12">
-        <div id="rsvp-success" class="hidden text-center py-8">
-          <div class="text-4xl mb-4">💌</div>
-          <h3 class="font-display text-3xl font-light text-ocean mb-3">Grazie mille!</h3>
-          <p class="font-body text-sm text-ocean/60">La vostra risposta è stata ricevuta. Non vediamo l'ora di vedervi!</p>
-        </div>
- 
-        <form id="rsvp-form" class="space-y-6" method="post" action="https://formspree.io/f/mdajrnaq">
-          <input type="hidden" name="_subject" value="Nuova conferma RSVP - Maria e Davide" />
-          <div class="grid sm:grid-cols-2 gap-6">
-            <div>
-              <label class="form-label">Nome</label>
-              <input type="text" id="rsvp-nome" class="form-input" placeholder="Il tuo nome" name="nome" required />
-            </div>
-            <div>
-              <label class="form-label">Cognome</label>
-              <input type="text" id="rsvp-cognome" class="form-input" placeholder="Il tuo cognome" name="cognome" required />
-            </div>
-          </div>
- 
-          <div>
-            <label class="form-label">Presenza</label>
-            <div class="flex gap-4 mt-2">
-              <label class="rsvp-radio-label">
-                <input type="radio" name="presenza" value="si" class="sr-only" required />
-                <span class="rsvp-radio-btn">Sarò presente 🥂</span>
-              </label>
-              <label class="rsvp-radio-label">
-                <input type="radio" name="presenza" value="no" class="sr-only" />
-                <span class="rsvp-radio-btn">Non potrò esserci 😔</span>
-              </label>
-            </div>
-          </div>
- 
-          <div>
-            <label class="form-label">Numero invitati (incluso te)</label>
-            <select id="rsvp-invitati" class="form-input" name="invitati">
-              <option value="1">1 persona</option>
-              <option value="2">2 persone</option>
-              <option value="3">3 persone</option>
-              <option value="4">4 persone</option>
-              <option value="5+">5 o più</option>
-            </select>
-          </div>
- 
-          <div>
-            <label class="form-label">Allergie o intolleranze alimentari</label>
-            <input type="text" id="rsvp-allergie" class="form-input" name="allergie" placeholder="Es: glutine, latticini, nessuna…" />
-          </div>
- 
-          <div>
-            <label class="form-label">Un messaggio per gli sposi</label>
-            <textarea id="rsvp-messaggio" class="form-input resize-none" rows="4" placeholder="Scrivi qualcosa di bello…" name="messaggio" ></textarea>
-          </div>
- 
-          <button type="submit" class="w-full bg-ocean text-cream text-xs tracking-[0.25em] uppercase py-4 hover:bg-gold hover:text-ocean transition-all duration-500">
-            Invia conferma
-          </button>
-        </form>
-      </div>
-    </div>
-  </section>
  
   <!-- ═══════════════ INFO UTILI ═══════════════ -->
   <section id="info" class="py-24 px-6 bg-cream">
@@ -392,7 +316,6 @@
         <button class="info-filter active" data-filter="all">Tutto</button>
         <button class="info-filter" data-filter="beauty">Bellezza</button>
         <button class="info-filter" data-filter="trasporti">Trasporti</button>
-        <button class="info-filter" data-filter="hotel">Hotel</button>
         <button class="info-filter" data-filter="aeroporti">Aeroporti</button>
       </div>
  
@@ -406,11 +329,11 @@
     <div class="max-w-3xl mx-auto">
       <div class="text-center mb-16 reveal">
         <p class="font-body text-xs tracking-[0.4em] uppercase text-gold/80 mb-4">Il vostro pensiero</p>
-        <h2 class="font-display text-6xl sm:text-7xl font-light text-cream">Lista Nozze</h2>
+        <h2 class="font-display text-6xl sm:text-7xl font-light text-cream">Il Vostro Pensiero</h2>
         <div class="w-12 h-px bg-gold mx-auto mt-6"></div>
         <p class="font-display italic text-lg text-cream/50 mt-8 leading-relaxed max-w-xl mx-auto">
-          "La vostra presenza è il regalo più grande che potessimo desiderare.<br class="hidden sm:block" />
-          Se volete farci un pensiero in più, avete due modi per farlo."
+          Con giogia condividiamo con voi questo giorno speciale. <br class="hidden sm:block" /> Qualora desideraste farci un dono, un contributo
+          sarebbe per noi particolarmente apprezzato e ci accompagnerà nei nostri futuri progetti.
         </p>
       </div>
  
@@ -454,7 +377,7 @@
           <div class="flex flex-col items-center justify-center py-6 mb-6">
             <span class="text-6xl mb-4">💌</span>
             <p class="font-display italic text-cream/60 text-center text-lg leading-relaxed">
-              Se preferite, potete consegnare la busta agli sposi o ai testimoni durante il ricevimento.
+              Se preferite, potete consegnare la busta agli sposi durante il ricevimento.
             </p>
           </div>
  
@@ -466,13 +389,7 @@
         </div>
  
       </div>
- 
-      <!-- Nota di ringraziamento -->
-      <div class="mt-10 text-center reveal">
-        <p class="font-display italic text-cream/40 text-lg">
-          Grazie di cuore per il vostro affetto e la vostra generosità. ✨
-        </p>
-      </div>
+
     </div>
   </section>
  
