@@ -49,28 +49,6 @@ const servicesData = [
 
 
 
-  // ─── Hotel ───
-  {
-    id: 8,
-    category: 'hotel',
-    categoryLabel: 'B&B',
-    emoji: '🏡',
-    name: 'B&B Sole e Vento',
-    detail: 'Nicotera Alta VV\nVista sul golfo. Colazione inclusa. Gestione familiare.',
-    phone: '+39 320 000 3333',
-    maps: 'https://maps.google.com/?q=Nicotera+VV',
-  },
-  {
-    id: 9,
-    category: 'hotel',
-    categoryLabel: 'Agriturismo',
-    emoji: '🌾',
-    name: 'Agriturismo Torre Vecchia',
-    detail: 'SP 60, Rosarno RC\nCamere rustiche con piscina. Colazione con prodotti locali. Ideale per famiglie.',
-    phone: '+39 096 500 4444',
-    maps: 'https://maps.google.com/?q=Rosarno+RC',
-  },
-
   // ─── Aeroporti ───
   {
     id: 10,
