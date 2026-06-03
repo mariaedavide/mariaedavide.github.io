@@ -29,7 +29,7 @@ const servicesData = [
     categoryLabel: 'Parrucchieri e Make-Up',
     emoji: '✂️💄',
     name: 'Euphoria Hair & beauty',
-    detail: 'Via Cavour 5, Rosarno RC\nAcronciature e trucco',
+    detail: 'Via Cavour 5, Rosarno RC\nAcconciature e trucco',
     phone: '+39 3403915343',
     maps: 'https://share.google/GBuLKB4eXAjUhOv3w',
   },
